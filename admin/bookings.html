@@ -1,0 +1,201 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bookings Management - Banjara Journeys Admin</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+</head>
+<body class="bg-gray-100">
+    <!-- Header -->
+    <header class="bg-white shadow-lg">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center py-4">
+                <div class="flex items-center">
+                    <h1 class="text-2xl font-bold text-blue-600">Banjara Journeys Admin</h1>
+                </div>
+                <div class="flex items-center space-x-4">
+                    <span class="text-gray-700">Welcome, Admin</span>
+                    <button id="logoutBtn" class="bg-red-600 hover:bg-red-700 text-white px-4 py-2 rounded-lg transition">
+                        <i class="fas fa-sign-out-alt mr-1"></i>
+                        Logout
+                    </button>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <div class="flex">
+        <!-- Sidebar -->
+        <nav class="bg-white w-64 min-h-screen shadow-lg">
+            <div class="p-4">
+                <ul class="space-y-2">
+                    <li>
+                        <a href="dashboard.html" class="flex items-center p-3 text-gray-700 hover:bg-gray-100 rounded-lg">
+                            <i class="fas fa-tachometer-alt mr-3"></i>
+                            Dashboard
+                        </a>
+                    </li>
+                    <li>
+                        <a href="trips.html" class="flex items-center p-3 text-gray-700 hover:bg-gray-100 rounded-lg">
+                            <i class="fas fa-map-marked-alt mr-3"></i>
+                            Manage Trips
+                        </a>
+                    </li>
+                    <li>
+                        <a href="bookings.html" class="flex items-center p-3 text-blue-600 bg-blue-50 rounded-lg">
+                            <i class="fas fa-calendar-check mr-3"></i>
+                            Bookings
+                        </a>
+                    </li>
+                    <li>
+                        <a href="gallery.html" class="flex items-center p-3 text-gray-700 hover:bg-gray-100 rounded-lg">
+                            <i class="fas fa-images mr-3"></i>
+                            Gallery
+                        </a>
+                    </li>
+                    <li>
+                        <a href="contacts.html" class="flex items-center p-3 text-gray-700 hover:bg-gray-100 rounded-lg">
+                            <i class="fas fa-envelope mr-3"></i>
+                            Contacts
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </nav>
+
+        <!-- Main Content -->
+        <main class="flex-1 p-8">
+            <!-- Header -->
+            <div class="flex justify-between items-center mb-8">
+                <div>
+                    <h2 class="text-3xl font-bold text-gray-900">Bookings Management</h2>
+                    <p class="text-gray-600 mt-2">Manage customer bookings and reservations</p>
+                </div>
+                <div class="flex space-x-4">
+                    <input type="text" id="searchBookings" placeholder="Search bookings..." class="px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent">
+                    <select id="statusFilter" class="px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent">
+                        <option value="all">All Status</option>
+                        <option value="pending">Pending</option>
+                        <option value="confirmed">Confirmed</option>
+                        <option value="cancelled">Cancelled</option>
+                    </select>
+                </div>
+            </div>
+
+            <!-- Bookings Stats -->
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-6 mb-8">
+                <div class="bg-white rounded-lg shadow p-6">
+                    <div class="flex items-center">
+                        <div class="bg-blue-100 p-3 rounded-full">
+                            <i class="fas fa-calendar-check text-blue-600 text-xl"></i>
+                        </div>
+                        <div class="ml-4">
+                            <p class="text-sm font-medium text-gray-600">Total Bookings</p>
+                            <p class="text-2xl font-semibold text-gray-900" id="totalBookings">0</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="bg-white rounded-lg shadow p-6">
+                    <div class="flex items-center">
+                        <div class="bg-yellow-100 p-3 rounded-full">
+                            <i class="fas fa-clock text-yellow-600 text-xl"></i>
+                        </div>
+                        <div class="ml-4">
+                            <p class="text-sm font-medium text-gray-600">Pending</p>
+                            <p class="text-2xl font-semibold text-gray-900" id="pendingBookings">0</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="bg-white rounded-lg shadow p-6">
+                    <div class="flex items-center">
+                        <div class="bg-green-100 p-3 rounded-full">
+                            <i class="fas fa-check-circle text-green-600 text-xl"></i>
+                        </div>
+                        <div class="ml-4">
+                            <p class="text-sm font-medium text-gray-600">Confirmed</p>
+                            <p class="text-2xl font-semibold text-gray-900" id="confirmedBookings">0</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="bg-white rounded-lg shadow p-6">
+                    <div class="flex items-center">
+                        <div class="bg-red-100 p-3 rounded-full">
+                            <i class="fas fa-times-circle text-red-600 text-xl"></i>
+                        </div>
+                        <div class="ml-4">
+                            <p class="text-sm font-medium text-gray-600">Cancelled</p>
+                            <p class="text-2xl font-semibold text-gray-900" id="cancelledBookings">0</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Bookings Table -->
+            <div class="bg-white rounded-lg shadow overflow-hidden">
+                <div class="overflow-x-auto">
+                    <table class="min-w-full divide-y divide-gray-200">
+                        <thead class="bg-gray-50">
+                            <tr>
+                                <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Customer</th>
+                                <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Trip</th>
+                                <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Date</th>
+                                <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Travelers</th>
+                                <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Status</th>
+                                <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Booking Date</th>
+                                <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody id="bookingsTableBody" class="bg-white divide-y divide-gray-200">
+                            <!-- Bookings will be loaded dynamically -->
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <!-- Empty State -->
+            <div id="emptyState" class="hidden text-center py-12">
+                <i class="fas fa-calendar-times text-6xl text-gray-300 mb-4"></i>
+                <h3 class="text-xl font-semibold text-gray-500 mb-2">No bookings found</h3>
+                <p class="text-gray-400">Bookings will appear here when customers make reservations</p>
+            </div>
+        </main>
+    </div>
+
+    <!-- Booking Details Modal -->
+    <div id="bookingModal" class="fixed inset-0 bg-black bg-opacity-50 z-50 hidden items-center justify-center">
+        <div class="bg-white rounded-lg shadow-2xl max-w-2xl w-full m-4 max-h-full overflow-y-auto">
+            <div class="p-6">
+                <div class="flex justify-between items-center mb-6">
+                    <h3 class="text-2xl font-bold text-gray-900">Booking Details</h3>
+                    <button id="closeBookingModal" class="text-gray-400 hover:text-gray-600 text-2xl">
+                        <i class="fas fa-times"></i>
+                    </button>
+                </div>
+
+                <div id="bookingDetails" class="space-y-6">
+                    <!-- Details will be loaded dynamically -->
+                </div>
+
+                <div class="flex justify-end space-x-4 mt-6 pt-6 border-t border-gray-200">
+                    <button id="confirmBookingBtn" class="px-6 py-2 bg-green-600 text-white rounded-lg hover:bg-green-700">
+                        <i class="fas fa-check mr-2"></i>
+                        Confirm Booking
+                    </button>
+                    <button id="cancelBookingBtn" class="px-6 py-2 bg-red-600 text-white rounded-lg hover:bg-red-700">
+                        <i class="fas fa-times mr-2"></i>
+                        Cancel Booking
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="assets/admin-bookings.js"></script>
+</body>
+</html>

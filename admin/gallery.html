@@ -1,0 +1,254 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gallery Management - Banjara Journeys Admin</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+</head>
+<body class="bg-gray-100">
+    <!-- Header -->
+    <header class="bg-white shadow-lg">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center py-4">
+                <div class="flex items-center">
+                    <h1 class="text-2xl font-bold text-blue-600">Banjara Journeys Admin</h1>
+                </div>
+                <div class="flex items-center space-x-4">
+                    <span class="text-gray-700">Welcome, Admin</span>
+                    <button id="logoutBtn" class="bg-red-600 hover:bg-red-700 text-white px-4 py-2 rounded-lg transition">
+                        <i class="fas fa-sign-out-alt mr-1"></i>
+                        Logout
+                    </button>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <div class="flex">
+        <!-- Sidebar -->
+        <nav class="bg-white w-64 min-h-screen shadow-lg">
+            <div class="p-4">
+                <ul class="space-y-2">
+                    <li>
+                        <a href="dashboard.html" class="flex items-center p-3 text-gray-700 hover:bg-gray-100 rounded-lg">
+                            <i class="fas fa-tachometer-alt mr-3"></i>
+                            Dashboard
+                        </a>
+                    </li>
+                    <li>
+                        <a href="trips.html" class="flex items-center p-3 text-gray-700 hover:bg-gray-100 rounded-lg">
+                            <i class="fas fa-map-marked-alt mr-3"></i>
+                            Manage Trips
+                        </a>
+                    </li>
+                    <li>
+                        <a href="bookings.html" class="flex items-center p-3 text-gray-700 hover:bg-gray-100 rounded-lg">
+                            <i class="fas fa-calendar-check mr-3"></i>
+                            Bookings
+                        </a>
+                    </li>
+                    <li>
+                        <a href="gallery.html" class="flex items-center p-3 text-blue-600 bg-blue-50 rounded-lg">
+                            <i class="fas fa-images mr-3"></i>
+                            Gallery
+                        </a>
+                    </li>
+                    <li>
+                        <a href="contacts.html" class="flex items-center p-3 text-gray-700 hover:bg-gray-100 rounded-lg">
+                            <i class="fas fa-envelope mr-3"></i>
+                            Contacts
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </nav>
+
+        <!-- Main Content -->
+        <main class="flex-1 p-8">
+            <!-- Header with Upload Button -->
+            <div class="flex justify-between items-center mb-8">
+                <div>
+                    <h2 class="text-3xl font-bold text-gray-900">Gallery Management</h2>
+                    <p class="text-gray-600 mt-2">Manage your travel photos by category</p>
+                </div>
+                <button id="uploadBtn" class="bg-gradient-to-r from-green-600 to-blue-600 hover:from-green-700 hover:to-blue-700 text-white px-6 py-3 rounded-lg shadow-lg transform hover:scale-105 transition">
+                    <i class="fas fa-upload mr-2"></i>
+                    Upload Images
+                </button>
+            </div>
+
+            <!-- Category Filters -->
+            <div class="mb-8">
+                <div class="flex flex-wrap gap-4">
+                    <button class="category-filter active bg-blue-600 text-white px-6 py-2 rounded-full" data-category="all">
+                        All Photos
+                    </button>
+                    <button class="category-filter bg-white text-gray-700 border px-6 py-2 rounded-full hover:bg-blue-600 hover:text-white transition" data-category="landscapes">
+                        Landscapes
+                    </button>
+                    <button class="category-filter bg-white text-gray-700 border px-6 py-2 rounded-full hover:bg-blue-600 hover:text-white transition" data-category="adventures">
+                        Adventures
+                    </button>
+                    <button class="category-filter bg-white text-gray-700 border px-6 py-2 rounded-full hover:bg-blue-600 hover:text-white transition" data-category="culture">
+                        Culture
+                    </button>
+                    <button class="category-filter bg-white text-gray-700 border px-6 py-2 rounded-full hover:bg-blue-600 hover:text-white transition" data-category="wildlife">
+                        Wildlife
+                    </button>
+                    <button class="category-filter bg-white text-gray-700 border px-6 py-2 rounded-full hover:bg-blue-600 hover:text-white transition" data-category="people">
+                        People
+                    </button>
+                </div>
+            </div>
+
+            <!-- Gallery Stats -->
+            <div class="grid grid-cols-2 md:grid-cols-6 gap-4 mb-8">
+                <div class="bg-white rounded-lg p-4 text-center shadow">
+                    <div class="text-2xl font-bold text-blue-600" id="totalImages">0</div>
+                    <div class="text-sm text-gray-600">Total Images</div>
+                </div>
+                <div class="bg-white rounded-lg p-4 text-center shadow">
+                    <div class="text-2xl font-bold text-green-600" id="landscapeCount">0</div>
+                    <div class="text-sm text-gray-600">Landscapes</div>
+                </div>
+                <div class="bg-white rounded-lg p-4 text-center shadow">
+                    <div class="text-2xl font-bold text-orange-600" id="adventureCount">0</div>
+                    <div class="text-sm text-gray-600">Adventures</div>
+                </div>
+                <div class="bg-white rounded-lg p-4 text-center shadow">
+                    <div class="text-2xl font-bold text-purple-600" id="cultureCount">0</div>
+                    <div class="text-sm text-gray-600">Culture</div>
+                </div>
+                <div class="bg-white rounded-lg p-4 text-center shadow">
+                    <div class="text-2xl font-bold text-yellow-600" id="wildlifeCount">0</div>
+                    <div class="text-sm text-gray-600">Wildlife</div>
+                </div>
+                <div class="bg-white rounded-lg p-4 text-center shadow">
+                    <div class="text-2xl font-bold text-red-600" id="peopleCount">0</div>
+                    <div class="text-sm text-gray-600">People</div>
+                </div>
+            </div>
+
+            <!-- Gallery Grid -->
+            <div id="galleryGrid" class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-4">
+                <!-- Images will be loaded dynamically -->
+            </div>
+        </main>
+    </div>
+
+    <!-- Upload Modal -->
+    <div id="uploadModal" class="fixed inset-0 bg-black bg-opacity-50 z-50 hidden items-center justify-center">
+        <div class="bg-white rounded-lg shadow-2xl max-w-2xl w-full m-4">
+            <div class="p-6">
+                <div class="flex justify-between items-center mb-6">
+                    <h3 class="text-2xl font-bold text-gray-900">Upload Images</h3>
+                    <button id="closeUploadModal" class="text-gray-400 hover:text-gray-600 text-2xl">
+                        <i class="fas fa-times"></i>
+                    </button>
+                </div>
+
+                <form id="uploadForm" class="space-y-6">
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700 mb-2">Image URL *</label>
+                        <input type="url" id="imageUrl" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent" required placeholder="https://example.com/image.jpg">
+                    </div>
+
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700 mb-2">Category *</label>
+                        <select id="imageCategory" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent" required>
+                            <option value="">Select Category</option>
+                            <option value="landscapes">Landscapes</option>
+                            <option value="adventures">Adventures</option>
+                            <option value="culture">Culture</option>
+                            <option value="wildlife">Wildlife</option>
+                            <option value="people">People</option>
+                        </select>
+                    </div>
+
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700 mb-2">Caption</label>
+                        <input type="text" id="imageCaption" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent" placeholder="Enter image caption">
+                    </div>
+
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700 mb-2">Tags</label>
+                        <input type="text" id="imageTags" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent" placeholder="Enter tags separated by commas">
+                    </div>
+
+                    <!-- Image Preview -->
+                    <div id="imagePreview" class="hidden">
+                        <label class="block text-sm font-medium text-gray-700 mb-2">Preview</label>
+                        <img id="previewImg" src="" alt="Preview" class="w-full h-48 object-cover rounded-lg border">
+                    </div>
+
+                    <div class="flex justify-end space-x-4">
+                        <button type="button" id="cancelUpload" class="px-6 py-2 border border-gray-300 text-gray-700 rounded-lg hover:bg-gray-50">
+                            Cancel
+                        </button>
+                        <button type="submit" class="px-6 py-2 bg-gradient-to-r from-green-600 to-blue-600 text-white rounded-lg hover:from-green-700 hover:to-blue-700">
+                            <i class="fas fa-upload mr-2"></i>
+                            Upload Image
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- Edit Image Modal -->
+    <div id="editModal" class="fixed inset-0 bg-black bg-opacity-50 z-50 hidden items-center justify-center">
+        <div class="bg-white rounded-lg shadow-2xl max-w-2xl w-full m-4">
+            <div class="p-6">
+                <div class="flex justify-between items-center mb-6">
+                    <h3 class="text-2xl font-bold text-gray-900">Edit Image</h3>
+                    <button id="closeEditModal" class="text-gray-400 hover:text-gray-600 text-2xl">
+                        <i class="fas fa-times"></i>
+                    </button>
+                </div>
+
+                <form id="editForm" class="space-y-6">
+                    <div>
+                        <img id="editPreviewImg" src="" alt="Preview" class="w-full h-48 object-cover rounded-lg border mb-4">
+                    </div>
+
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700 mb-2">Category *</label>
+                        <select id="editImageCategory" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent" required>
+                            <option value="landscapes">Landscapes</option>
+                            <option value="adventures">Adventures</option>
+                            <option value="culture">Culture</option>
+                            <option value="wildlife">Wildlife</option>
+                            <option value="people">People</option>
+                        </select>
+                    </div>
+
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700 mb-2">Caption</label>
+                        <input type="text" id="editImageCaption" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent">
+                    </div>
+
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700 mb-2">Tags</label>
+                        <input type="text" id="editImageTags" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent">
+                    </div>
+
+                    <div class="flex justify-end space-x-4">
+                        <button type="button" id="cancelEdit" class="px-6 py-2 border border-gray-300 text-gray-700 rounded-lg hover:bg-gray-50">
+                            Cancel
+                        </button>
+                        <button type="submit" class="px-6 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700">
+                            <i class="fas fa-save mr-2"></i>
+                            Save Changes
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <script src="assets/admin-gallery.js"></script>
+</body>
+</html>
